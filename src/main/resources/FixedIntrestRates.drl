@@ -1,0 +1,25 @@
+import  com.example.demospringboot.domain.FixedIntrestRate;
+
+rule "FD Interest Rate for SBI Bank duration more than 1 year and below 2 years"
+    when
+        fdObject : FixedIntrestRate( bankName=="SBI" && durationInYear >= 1 && durationInYear < 2);
+    then
+        fdObject.setFdInterestRate("3%");
+        fdObject.setBankName("SBI Bank");
+end;
+
+rule "FD Interest Rate for SBI Bank for duration more than or equal to 2 years"
+    when
+        fdObject : FixedIntrestRate( bankName=="SBI" && durationInYear >= 2);
+    then
+        fdObject.setFdInterestRate("6%");
+        fdObject.setBankName("SBI Bank");
+end;
+
+rule "FD Interest Rate for Canara Bank for duration more than or equal to 1 year"
+    when
+        fdObject : FixedIntrestRate( bankName=="Canara" && durationInYear >= 1);
+    then
+        fdObject.setFdInterestRate("3%");
+        fdObject.setBankName("Canara Bank");
+end;
