@@ -1,0 +1,10 @@
+import  com.example.demospringboot.domain.Example;
+
+rule "If role is empty or null then it will show you the guest related things"
+    when
+        example : Example( role == "");
+    then
+        example.setName("Guest");
+        example.setMobileNumber("9876543210");
+        System.out.println(example);
+end;

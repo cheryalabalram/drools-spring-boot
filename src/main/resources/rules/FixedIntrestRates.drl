@@ -20,6 +20,6 @@ rule "FD Interest Rate for Canara Bank for duration more than or equal to 1 year
     when
         fdObject : FixedIntrestRate( bankName=="Canara" && durationInYear >= 1);
     then
-        fdObject.setFdInterestRate("3%");
+        fdObject.setFdInterestRate("4.5%");
         fdObject.setBankName("Canara Bank");
 end;

@@ -1,5 +1,7 @@
 package com.example.demospringboot.config;
 
+import java.io.File;
+
 import org.kie.api.KieServices;
 import org.kie.api.builder.KieBuilder;
 import org.kie.api.builder.KieFileSystem;
@@ -17,7 +19,15 @@ public class DroolsConfiguration {
     @Bean
     public KieContainer getKieContainer() {
         KieFileSystem kieFileSystem = kieServices.newKieFileSystem();
-        kieFileSystem.write(ResourceFactory.newClassPathResource("FixedIntrestRates.drl"));
+        
+        File dir = new File("src/main/resources/rules");
+        File[] directoryListing = dir.listFiles();
+        if (directoryListing != null) {
+            for (File child : directoryListing) {
+                kieFileSystem.write(ResourceFactory.newClassPathResource("rules/"+child.getName()));
+            }
+        }
+        
         KieBuilder kb = kieServices.newKieBuilder(kieFileSystem);
         kb.buildAll();
         KieModule kieModule = kb.getKieModule();

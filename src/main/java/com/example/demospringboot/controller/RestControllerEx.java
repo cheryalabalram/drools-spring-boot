@@ -18,6 +18,7 @@ public class RestControllerEx {
 	@GetMapping(path = "/hi")
 	public Example method() {
 		Example e = new Example();
+		new Example();
 		return e;
 	}
 	
@@ -25,6 +26,16 @@ public class RestControllerEx {
     public FixedIntrestRate getQuestions(@RequestParam(required = true) String bank, @RequestParam(required = true) Integer durationInYear) {
         KieSession kieSession = kieContainer.newKieSession();
         FixedIntrestRate fdRequest = new FixedIntrestRate(bank,durationInYear);
+        kieSession.insert(fdRequest);
+        kieSession.fireAllRules();
+        kieSession.dispose();
+        return fdRequest;
+    }
+	
+	@GetMapping(path = "/example")
+    public Example example(@RequestParam(required = true) String role) {
+        KieSession kieSession = kieContainer.newKieSession();
+        Example fdRequest = new Example(role);
         kieSession.insert(fdRequest);
         kieSession.fireAllRules();
         kieSession.dispose();
